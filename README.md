@@ -70,3 +70,15 @@ npm run start:dev
 
 - **Documentacion del Proyecto**  
   [en desarrollo](en desarrollo)
+
+## ejecutar pruebas
+añade lo siguiente en package.Json
+
+
+```json
+ "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+"test": "jest",
+"test:watch": "jest --watch ",
+"test:cov": "jest --coverage",
+"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+```

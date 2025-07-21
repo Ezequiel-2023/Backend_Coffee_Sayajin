@@ -7,6 +7,12 @@ import {
   IsNumber,
 } from 'class-validator';
 
+export enum Role {
+  cliente = 'cliente',
+  admin = 'admin',
+  empleado = 'empleado',
+}
+
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty({ message: 'El nombre es obligatorio' })
@@ -26,4 +32,8 @@ export class CreateUserDto {
   @IsOptional()
   @IsNumber({}, { message: 'El token debe ser un número' })
   tokenNumber: number;
+
+  @IsOptional()
+  @IsString()
+  role: Role = Role.cliente;
 }
