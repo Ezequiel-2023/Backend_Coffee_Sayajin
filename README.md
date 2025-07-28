@@ -64,6 +64,9 @@ npm run start:dev
 - **Repositorio frontend web:**  
   [en desarrollo](en desarrollo)
 
+- **Repositorio frontend Escritorio:**  
+  [https://github.com/Ezequiel-2023/Aplicaci-n-_Escritorio---Cafeter-a_JavaFX]
+
 ---
 
 ¡Contribuciones y sugerencias son bienvenidas!
