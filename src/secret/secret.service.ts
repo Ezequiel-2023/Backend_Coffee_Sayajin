@@ -13,6 +13,14 @@ export class SecretService {
     plainPassword: string,
     hashedPassword: string,
   ): Promise<boolean> {
+    if (!plainPassword || !hashedPassword) {
+      console.error('❌ Contraseña o hash no proporcionados:', {
+        plainPassword,
+        hashedPassword,
+      });
+      throw new Error('Faltan argumentos para comparar contraseñas');
+    }
+
     return bcrypt.compare(plainPassword, hashedPassword);
   }
 }

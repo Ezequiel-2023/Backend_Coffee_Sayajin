@@ -4,16 +4,27 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { SecretService } from 'src/secret/secret.service';
+import { Role } from 'role/rol.enum';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly secretService: SecretService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.userRepository.create(createUserDto);
+    const hashedPassword = await this.secretService.hashPassword(
+      createUserDto.password,
+    );
+    const user = this.userRepository.create({
+      ...createUserDto,
+      password: hashedPassword,
+      role: createUserDto.rol ?? Role.Cliente,
+    });
+
     return await this.userRepository.save(user);
   }
 
@@ -22,7 +33,10 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.userRepository.findOneBy({ email });
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['id', 'email', 'password', 'name', 'apellido', 'role'], 
+    });
   }
 
   async findOne(id: number): Promise<User> {

@@ -11,8 +11,6 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Role } from 'role/rol.enum';
-import { Roles } from 'role/roles.decorador';
 
 
 @Controller('users')
@@ -20,7 +18,6 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @Roles(Role.Admin) // Assuming you have a role guard set up
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.create(createUserDto);
   }

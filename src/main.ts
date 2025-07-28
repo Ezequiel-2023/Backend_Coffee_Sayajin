@@ -1,10 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { RolesGuard } from 'role/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-   app.useGlobalGuards(app.get(RolesGuard));
-  await app.listen(process.env.PORT ?? 3000);
+  app.enableCors({
+    origin: 'http://localhost:8081', // Dirección del frontend
+    credentials: true,
+  });
+  await app.listen(4000); // Direccion backend
 }
-void bootstrap();
+bootstrap().catch((err) => {
+  console.error('Error during bootstrap:', err);
+});

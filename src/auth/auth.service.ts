@@ -11,33 +11,38 @@ export class AuthService {
     private readonly encrypt: SecretService,
   ) {}
 
-  async login(email: string, pass: string): Promise<{ access_token: string }> {
-    // Busca el usuario por email
-    const user = await this.usersService.findByEmail(email);
+  async login(email: string, pass: string): Promise<{ token: string }> {
+    try {
+      const user = await this.usersService.findByEmail(email);
 
-    if (!user) {
-      throw new UnauthorizedException('Usuario no encontrado');
+      if (!user) {
+        throw new UnauthorizedException('Usuario no encontrado');
+      }
+
+      const isPasswordValid = await this.encrypt.comparePasswords(
+        pass,
+        user.password,
+      );
+
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Credenciales inválidas');
+      }
+
+      console.log('✅ Contraseña verificada correctamente para:', user.email);
+
+      const payload = {
+        sub: user.id,
+        name: user.name,
+        email: user.email,
+      };
+
+      const token = await this.jwtService.signAsync(payload);
+      console.log('🔐 Token JWT generado:', token);
+
+      return { token };
+    } catch (error) {
+      console.error('🔥 ERROR INTERNO EN LOGIN:', error);
+      throw error; // sigue lanzando para que llegue al cliente con 401 o 500
     }
-
-    // Verifica la contraseña
-    const isPasswordValid = await this.encrypt.comparePasswords(
-      pass,
-      user.password,
-    );
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Credenciales inválidas');
-    }
-
-    // Crea el payload para el JWT
-    const payload = {
-      sub: user.id,
-      name: user.name,
-      email: user.email,
-      
-    };
-
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
   }
 }

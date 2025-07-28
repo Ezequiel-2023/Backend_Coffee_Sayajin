@@ -82,3 +82,13 @@ añade lo siguiente en package.Json
 "test:cov": "jest --coverage",
 "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
 ```
+
+### ✅ Soluciones para detener Jest definitivamente
+🛑 1. Matar el proceso manualmente (si Ctrl+C no funciona)
+Ejecuta en terminal:
+
+En PowerShell o CMD:
+```bash
+taskkill /F /IM node.exe
+```
+

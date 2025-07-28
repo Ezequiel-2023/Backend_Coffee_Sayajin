@@ -4,14 +4,11 @@ import {
   MinLength,
   IsEmail,
   IsOptional,
-  IsNumber,
+  IsEnum,
 } from 'class-validator';
+import { Role } from 'role/rol.enum';
 
-export enum Role {
-  cliente = 'cliente',
-  admin = 'admin',
-  empleado = 'empleado',
-}
+
 
 export class CreateUserDto {
   @IsString()
@@ -29,11 +26,8 @@ export class CreateUserDto {
   @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
   password: string;
 
-  @IsOptional()
-  @IsNumber({}, { message: 'El token debe ser un número' })
-  tokenNumber: number;
 
   @IsOptional()
-  @IsString()
-  role: Role = Role.cliente;
+  @IsEnum(Role, { message: 'El rol debe ser cliente, admin o empleado' })
+  rol?: Role;
 }
