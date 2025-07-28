@@ -59,13 +59,13 @@ npm run start:dev
 ## Conexión con los frontends
 
 - **Repositorio frontend móvil:**  
-  [https://github.com/Ezequiel-2023/react-native-coffee](https://github.com/Ezequiel-2023/react-native-coffee)
+  [enlace](https://github.com/Ezequiel-2023/react-native-coffee)
 
 - **Repositorio frontend web:**  
   [en desarrollo](en desarrollo)
 
 - **Repositorio frontend Escritorio:**  
-  [https://github.com/Ezequiel-2023/Aplicaci-n-_Escritorio---Cafeter-a_JavaFX]
+  [enlace](https://github.com/Ezequiel-2023/Aplicaci-n-_Escritorio---Cafeter-a_JavaFX)
 
 ---
 
