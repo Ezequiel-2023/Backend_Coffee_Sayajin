@@ -7,9 +7,11 @@ import { SecretModule } from './secret/secret.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'role/roles.guard';
+import { EmpleadoAdminModule } from './empleado-admin/empleado-admin.module';
+import { AsistenciaModule } from './asistencia/asistencia.module';
 
 @Module({
-  imports: [DatabaseModuleModule, UsersModule, SecretModule, AuthModule],
+  imports: [DatabaseModuleModule, UsersModule, SecretModule, AuthModule, EmpleadoAdminModule, AsistenciaModule],
   controllers: [AppController],
   providers: [AppService,
     {

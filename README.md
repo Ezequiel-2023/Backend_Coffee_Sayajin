@@ -94,4 +94,3 @@ En PowerShell o CMD:
 ```bash
 taskkill /F /IM node.exe
 ```
-
